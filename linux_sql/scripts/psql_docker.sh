@@ -5,6 +5,7 @@ state=$1
 db_user=$2
 db_pass=$3
 container="jrvs_psql"
+container_status=$(docker container ls -a -f name=$container | wc -1)
 
 # Starting Docker container if not already started
 sudo systemctl status docker || systemctl start docker
@@ -13,7 +14,7 @@ sudo systemctl status docker || systemctl start docker
 case $state in
   create)
 
-    if [ $(docker container ls -a -f name=$container | wc -1) -eq 2 ]
+    if [ $container_status -eq 2 ]
     then
       echo " The container jrvs_psql has already been created on this machine"
       exit 1
@@ -33,7 +34,7 @@ case $state in
   start)
 
     # Check if container exists then start docker container
-    if [ $(docker container ls -a -f name=$container | wc -1) -ne 2 ];
+    if [ $container_status -ne 2 ];
     then
       echo "The container jrvs_psql has not yet been created on this machine, to create one please use the following syntax"
       echo "./psql_docker.sh create|start|stop [db_username][db_password]"
@@ -47,7 +48,7 @@ case $state in
   stop)
 
     # Check if container exists then stop docker container
-    if [ $(docker container ls -a -f name=$container | wc -1) -ne 2 ];
+    if [ $container_status -ne 2 ];
     then
       echo "The container jrvs_psql has not yet been created on this machine, to create one please use the following syntax"
       echo "./psql_docker.sh create|start|stop [db_username][db_password]"
