@@ -21,7 +21,7 @@ SELECT
     usages.host_id,
     infos.hostname,
     rounder(usages.timestamp) AS times,
-    AVG(()) AS avg_used_mem
+    AVG((infos.total_mem - usages.memory_free)/infos.total_mem*100) AS avg_used_mem
 FROM host_info AS infos INNER JOIN host_usage AS usages ON infos.id = usages.host_id
 GROUP BY
     usages.host_id,
