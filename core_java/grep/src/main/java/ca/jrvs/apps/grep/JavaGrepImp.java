@@ -2,6 +2,9 @@ package ca.jrvs.apps.grep;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import jdk.nashorn.internal.runtime.Context.ThrowErrorManager;
 import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
@@ -36,27 +39,81 @@ public class JavaGrepImp implements JavaGrep {
 
     @Override
     public void process() throws IOException {
-
+        List<String> matchedLines = new ArrayList<String>();
+        for (File file : listFiles(getRootPath()))
+        {
+            for (String line : readLines(file))
+            {
+                if (containsPattern(line)){
+                    matchedLines.add(line);
+                }
+            }
+        }
+        writeToFile(matchedLines);
     }
 
     @Override
     public List<File> listFiles(String rootDir) {
-        return null;
+        List<File> files = new ArrayList<File>();
+        Queue<File> fileQueue = new LinkedList<>();
+        fileQueue.add(new File(rootDir));
+        while(!fileQueue.isEmpty())
+        {
+            File currentFile = fileQueue.poll();
+            if(currentFile.isDirectory()){
+                for(File file : currentFile.listFiles())
+                {
+                    fileQueue.add(file);
+                }
+            } else {
+                files.add(currentFile);
+            }
+        }
+        return files;
     }
 
     @Override
     public List<String> readLines(File inputFile) {
-        return null;
+        if(!inputFile.isFile()){
+            throw new IllegalArgumentException("ERROR: inputFile is not a file.");
+        }
+        List<String> lines = new ArrayList<>();
+        try{
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
+            String line;
+            while ((line = bufferedReader.readLine()) != null){
+                lines.add(line);
+            }
+        } catch (Exception ex){
+            logger.error("ERROR: Failed to create BufferedReader", ex);
+        }
+        return lines;
     }
 
     @Override
     public boolean containsPattern(String line) {
-        return false;
+        Pattern pattern = Pattern.compile(getRegex());
+        Matcher matcher = pattern.matcher(line);
+        boolean match = matcher.matches();
+
+        return match;
     }
 
     @Override
     public void writeToFile(List<String> lines) throws IOException {
-
+        File outputFile = new File(getOutFile());
+        FileOutputStream outStream = new FileOutputStream(outputFile);
+        try{
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outStream));
+            for(String line : lines){
+                bufferedWriter.write(line);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.flush();
+            bufferedWriter.close();
+        }catch(Exception ex){
+            logger.error("ERROR: The write to outFile failed", ex);
+        }
     }
 
     @Override
