@@ -1,4 +1,4 @@
-package ca.jrvs.apps.grep.practice;
+package ca.jrvs.apps.practice;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,7 +47,7 @@ public class LambdaStreamExcImp implements LambdaStreamExc {
      */
     @Override
     public Stream<String> filter(Stream<String> stringStream, String pattern) {
-        Stream<String> fltStream = stringStream.filter(str -> str.contains(pattern));
+        Stream<String> fltStream = stringStream.filter(str -> !str.contains(pattern));
         return fltStream;
     }
 
