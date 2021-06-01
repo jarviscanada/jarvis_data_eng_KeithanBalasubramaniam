@@ -1,64 +1,57 @@
 # Keithan Balasubramaniam . Jarvis Consulting
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis a orci ac malesuada. Vivamus ligula elit, viverra eu ante porttitor, blandit convallis augue. Aliquam justo justo, mollis at lacus eu, rutrum finibus est. Vestibulum venenatis purus id accumsan pretium. In efficitur magna nec enim laoreet tincidunt. Ut libero metus, scelerisque nec eros vitae, sagittis pellentesque enim. Donec dictum felis volutpat, vehicula magna eu, imperdiet elit. Phasellus ut velit a massa efficitur faucibus. Sed volutpat, lacus sed sagittis luctus, elit.
+I am a recent graduate from Ryerson University where I received my Bachelor of Engineering, majoriting in Computer Engineering.
 
 ## Skills
 
-**Proficient:** Java, Linux/Bash, RDBMS/SQL, Agile/Scrum, Git
+**Proficient:** Java, Linux/Bash, RDBMS/SQL, Agile/Scrum, Git, Python, Docker
 
-**Competent:** Donec, fermentum, Donec, fermentum, Donec
+**Competent:** HTML, CSS, C, C++, Matlab
 
-**Familiar:** Donec, fermentum, fermentum, fermentum, fermentum
+**Familiar:** TensorFlow, OpenCV, VHDL, Swift, Javascript
 
 ## Jarvis Projects
 
-Project source code: [https://github.com/jarviscanada/jarvis_data_eng_demo](https://github.com/jarviscanada/jarvis_data_eng_demo)
+Project source code: [https://github.com/jarviscanada/jarvis_data_eng_KeithanBalasubramaniam](https://github.com/jarviscanada/jarvis_data_eng_KeithanBalasubramaniam)
 
 
-**Cluster Monitor** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_demo/tree/master/linux_sql)]: Suspendisse a tincidunt odio. Suspendisse posuere luctus aliquet. Quisque magna tellus, tempor vitae arcu sed, volutpat scelerisque lacus. Aliquam varius pulvinar dapibus. Ut a tincidunt sem. Aenean sollicitudin fringilla erat ut imperdiet. Phasellus fermentum, enim vitae laoreet elementum, eros nisl hendrerit lorem.
+**Cluster Monitor** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_KeithanBalasubramaniam/tree/master/linux_sql)]: Implemented a set of bash scripts that gather data on hardware specifications of nodes within the linux cluster, monitor their resource usage in real time, and store the data to a PSQL database maintained in a docker instance.
 
-**Core Java Apps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_demo/tree/master/core_java)]:
+**Core Java Apps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_KeithanBalasubramaniam/tree/master/core_java)]:
       
-  - Twitter App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam.
-  - JDBC App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam.
-  - Grep App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam.
+  - Twitter App: Not started.
+  - JDBC App: Created a JDBC application that implements DAO's in a JDBC system. 
+  - Grep App: Developed an application that mirrors the Linux bash grep function to search for a matching regex pattern in a directory.
 
-**Springboot App** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_demo/tree/master/springboot)]: Not Started
+**Springboot App** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_KeithanBalasubramaniam/tree/master/springboot)]: Not started
 
-**Python Data Analytics** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_demo/tree/master/python_data_anlytics)]: Not Started
+**Python Data Analytics** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_KeithanBalasubramaniam/tree/master/python_data_anlytics)]: Not started.
 
-**Hadoop** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_demo/tree/master/hadoop)]: Not Started
+**Hadoop** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_KeithanBalasubramaniam/tree/master/hadoop)]: Not started.
 
-**Spark** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_demo/tree/master/spark)]: Not Started
+**Spark** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_KeithanBalasubramaniam/tree/master/spark)]: Not started.
 
-**Cloud/DevOps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_demo/tree/master/cloud_devops)]: Not Started
+**Cloud/DevOps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_KeithanBalasubramaniam/tree/master/cloud_devops)]: Not started.
 
 
 ## Highlighted Projects
-**Web app for resturant** [[GitHub](https://github.com/jarviscanada/jarvis_profile_builder)]: Suspendisse a tincidunt odio. Suspendisse posuere luctus aliquet. Quisque magna tellus, tempor vitae arcu sed, volutpat scelerisque lacus. Aliquam varius pulvinar dapibus. Ut a tincidunt sem. Aenean sollicitudin fringilla erat ut imperdiet. Phasellus fermentum, enim vitae laoreet elementum, eros nisl hendrerit lorem.
+**AI Personal Trainer** [[GitHub](https://github.com/jarviscanada/jarvis_profile_builder)]: Designed an application where a user can follow along an exercise routine by a trainer on a video, and dynamically receive real time feedback on quality of form as a score. Developed application's body tracking algorithim in Python using OpenCV and TensorFlow. Implemented convolutional neural networking and dynamic time warping to compute real time user scoring metrics.
 
-**Machine Learning**: Suspendisse a tincidunt odio. Suspendisse posuere luctus aliquet. Quisque magna tellus, tempor vitae arcu sed, volutpat scelerisque lacus. Aliquam varius pulvinar dapibus. Ut a tincidunt sem. Aenean sollicitudin fringilla erat ut imperdiet. Phasellus fermentum, enim vitae laoreet elementum, eros nisl hendrerit lorem.
+**Peer-to-Peer Application ** [[GitHub](https://github.com/KeithanBala/AI-Personal-Trainer)]: Created an application that allows exchanges of files and media among connected peer networks. Implemented UDP and TCP connections with an index server and peer networks using sockets in C. Designed functionalities for users to upload and delete files to be shared to other connected peer networks via the index server.
+
+**Intelligent Autonomous Robot Car**: Implemented a maze solving algorithim in Assembly on a miniature robot car to react to obstacles and dead end paths to allow the robot to learn all possible routes through the maze. Integrated sensors to read, and follow possible paths to traverse the maze backwards.
 
 
 ## Professional Experiences
 
-**Software Developer, Jarvis (2020-present)**: Donec mattis sed justo et sagittis. Vestibulum lacinia nulla ipsum. Curabitur imperdiet nibh vitae leo lacinia laoreet. Nullam accumsan, lectus ut maximus ultricies, augue justo egestas mi, vel bibendum felis.
+**Data and Applications Engineer, Jarvis (2021-present)**: Donec mattis sed justo et sagittis. Vestibulum lacinia nulla ipsum. Curabitur imperdiet nibh vitae leo lacinia laoreet. Nullam accumsan, lectus ut maximus ultricies, augue justo egestas mi, vel bibendum felis.
 
-**Tutor, XYZ Company (2019)**: Donec mattis sed justo et sagittis. Vestibulum lacinia nulla ipsum. Curabitur imperdiet nibh vitae leo lacinia laoreet. Nullam accumsan, lectus ut maximus ultricies, augue justo egestas mi, vel bibendum felis.
+**Software Developer Intern, DM&T Services LTD. (2015-2017)**: Donec mattis sed justo et sagittis. Vestibulum lacinia nulla ipsum. Curabitur imperdiet nibh vitae leo lacinia laoreet. Nullam accumsan, lectus ut maximus ultricies, augue justo egestas mi, vel bibendum felis.
 
 
 ## Education
-**XYZ university (2012-2016)**, Bachelor of Applied Sciences, Electrical and Computer Engineering
-- Scholarship
-- Dean's List (2015, 2016): Ut enim ad minim veniam
-- GPA: 3.8/4.0
-
-**XYZ university (2016-2018)**, Master of Engineering, Electrical and Computer Engineering
+**Ryerson University (2017-2021)**, Bachelor of Engineering, Computer Engineering
 
 
 ## Miscellaneous
-- Udacity Machine Learning (2019)
-- Winner
-- Basketball player
-- Competitive gaming
-- Volunteer, ABC Food bank: Ut enim ad minim veniam
+- Running Marathons
