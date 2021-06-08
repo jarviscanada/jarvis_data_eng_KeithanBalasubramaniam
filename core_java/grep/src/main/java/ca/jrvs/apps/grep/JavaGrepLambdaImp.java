@@ -49,7 +49,7 @@ public class JavaGrepLambdaImp extends JavaGrepImp{
             Stream<Path> fileStream = Files.walk(Paths.get(rootDir));
             fileStream.filter(Files::isRegularFile).forEach(file -> files.add(file.toFile()));
         }catch(Exception ex){
-            logger.error("ERROR: Failed to retrieve file");
+            logger.error("ERROR: Failed to retrieve file", ex);
         }
         return files;
     }
