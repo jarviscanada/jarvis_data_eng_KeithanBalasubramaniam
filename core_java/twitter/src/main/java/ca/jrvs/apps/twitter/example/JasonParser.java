@@ -8,8 +8,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 
-import java.io.IOException;
-
 public class JasonParser {
 
     //JSON string is provided(you can copy and paste)
