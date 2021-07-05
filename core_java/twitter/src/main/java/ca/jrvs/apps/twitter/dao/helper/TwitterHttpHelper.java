@@ -12,10 +12,10 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
@@ -30,6 +30,20 @@ public class TwitterHttpHelper implements HttpHelper{
     private OAuthConsumer consumer;
     private HttpClient httpClient;
 
+    /**
+     * Constructor setting up environment variables from parameters
+     *
+     * @param consumerKey
+     * @param consumerSecret
+     * @param accessToken
+     * @param tokenSecret
+     */
+    public TwitterHttpHelper(String consumerKey, String consumerSecret, String accessToken, String tokenSecret){
+        consumer = new CommonsHttpOAuthConsumer(consumerKey, consumerSecret);
+        consumer.setTokenWithSecret(accessToken, tokenSecret);
+        httpClient = HttpClientBuilder.create().build();
+    }
+
     public TwitterHttpHelper(){
         //get all envs
         String consumerKey = System.getenv("consumerKey");
@@ -43,22 +57,6 @@ public class TwitterHttpHelper implements HttpHelper{
     }
 
     /**
-     * Constructor setting up environment variables from parameters
-     *
-     * @param consumerKey
-     * @param consumerSecret
-     * @param accessToken
-     * @param tokenSecret
-     */
-    public TwitterHttpHelper(String consumerKey, String consumerSecret, String accessToken, String tokenSecret){
-        BasicConfigurator.configure();
-        consumer = new CommonsHttpOAuthConsumer(consumerKey, consumerSecret);
-        consumer.setTokenWithSecret(accessToken, tokenSecret);
-
-        httpClient = HttpClientBuilder.create().build();
-    }
-
-    /**
      * Execute a HTTP Post call
      *
      * @param uri
@@ -66,11 +64,8 @@ public class TwitterHttpHelper implements HttpHelper{
      */
     @Override
     public HttpResponse httpPost(URI uri) {
-        try {
-            return completeHttpRequest(HttpMethod.POST, uri, null);
-        } catch (OAuthException | IOException e){
-            throw new RuntimeException("Failed to execute", e);
-        }
+        HttpPost request = new HttpPost(uri);
+        return completeHttpRequest(request);
     }
 
     /**
@@ -81,27 +76,26 @@ public class TwitterHttpHelper implements HttpHelper{
      */
     @Override
     public HttpResponse httpGet(URI uri) {
-        try {
-            return completeHttpRequest(HttpMethod.GET, uri, null);
-        } catch (OAuthException | IOException e){
-            throw new RuntimeException("Failed to execute", e);
-        }
+        HttpGet request = new HttpGet(uri);
+        return completeHttpRequest(request);
     }
 
-    private HttpResponse completeHttpRequest(HttpMethod method, URI uri, StringEntity stringEntity)throws OAuthException, IOException{
-        if (method == HttpMethod.GET) {
-            HttpGet request = new HttpGet(uri);
+    private <T> HttpResponse completeHttpRequest(T request){
+        HttpResponse response = null;
+
+        try {
             consumer.sign(request);
-            return httpClient.execute(request);
-        } else if (method == HttpMethod.POST){
-            HttpPost request = new HttpPost(uri);
-            if (stringEntity != null) {
-                request.setEntity(stringEntity);
-            }
-            consumer.sign(request);
-            return httpClient.execute(request);
-        } else {
-            throw new IllegalArgumentException("Unknown HTTP method: " + method.name());
+        } catch (OAuthMessageSignerException | OAuthExpectationFailedException
+                | OAuthCommunicationException e) {
+            logger.error("Couldn't sign HTTP send request", e);
         }
+
+        try {
+            response = httpClient.execute((HttpUriRequest) request);
+        } catch (IOException e) {
+            logger.error("Couldn't execute HTTP request", e);
+        }
+
+        return response;
     }
 }
