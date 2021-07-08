@@ -5,6 +5,7 @@ import ca.jrvs.apps.twitter.util.TwitterJsonParser;
 import com.google.gdata.util.common.base.PercentEscaper;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
@@ -36,24 +37,17 @@ public class TwitterDao implements CrdDao<Tweet, String> {
     /**
      * Create an entity(Tweet) to the underlying storage
      *
-     * @param entity entity that to be created
+     * @param tweet entity that to be created
      * @return created entity
      */
     @Override
-    public Tweet create(Tweet entity) {
-        PercentEscaper percentEscaper = new PercentEscaper("", false);
-        List<Double> coords = entity.getCoordinates().getCoordinates();
+    public Tweet create(Tweet tweet) {
+        URI uri;
+        uri = getPostUri(tweet);
 
-        String queryStr = "status" + EQUAL + percentEscaper.escape(entity.getText()) + AMPERSAND
-                + "long" + EQUAL + coords.get(0) + AMPERSAND + "lat" + EQUAL + coords.get(1);
-        URI uri = URI.create(API_BASE_URI + POST_PATH + QUERY_SYM + queryStr);
-
+        //Execute HTTP Request
         HttpResponse response = httpHelper.httpPost(uri);
-        try {
-            return parseData(response, HTTP_OK);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return parseData(response, HTTP_OK);
     }
 
     /**
@@ -93,6 +87,20 @@ public class TwitterDao implements CrdDao<Tweet, String> {
         }
     }
 
+    private URI getPostUri(Tweet tweet) {
+        URI uri;
+        PercentEscaper percentEscaper = new PercentEscaper("", false);
+        try {
+            uri = new URI(API_BASE_URI + POST_PATH + QUERY_SYM + "status" + EQUAL + percentEscaper
+                    .escape(tweet.getText()) + AMPERSAND + "long" + EQUAL + tweet.getCoordinates()
+                    .getCoordinates().get(0) + AMPERSAND + "lat" + EQUAL + tweet.getCoordinates()
+                    .getCoordinates().get(1));
+            return uri;
+        } catch (URISyntaxException ex) {
+            throw new IllegalArgumentException("Invalid input", ex);
+        }
+    }
+
 
     /**
      * Takes the response data of the request and creates the tweet object from the body
@@ -101,7 +109,7 @@ public class TwitterDao implements CrdDao<Tweet, String> {
      * @param code
      * @return
      */
-    public Tweet parseData(HttpResponse response, Integer code) {
+    public Tweet parseData(HttpResponse response, int code) {
         Tweet tweet = null;
 
         int sCode = response.getStatusLine().getStatusCode();

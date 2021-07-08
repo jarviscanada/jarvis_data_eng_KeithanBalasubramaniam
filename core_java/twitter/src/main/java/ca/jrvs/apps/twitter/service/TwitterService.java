@@ -66,8 +66,8 @@ public class TwitterService implements Service{
 
         if (tweet_text.length() > 140){
             throw new IllegalArgumentException("Tweet Text must be 140 characters or less");
-        } else if (longitude > 90 || longitude < -90){
-            throw new IllegalArgumentException("The longitude is out of range, must be between [-90,90]");
+        } else if (longitude > 180 || longitude < -180){
+            throw new IllegalArgumentException("The longitude is out of range, must be between [-180,180]");
         } else if (latitude > 90 || latitude < -90){
             throw new IllegalArgumentException("The longitude is out of range, must be between [-90,90]");
         }
