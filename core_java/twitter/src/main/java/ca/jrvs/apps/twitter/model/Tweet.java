@@ -3,120 +3,171 @@ package ca.jrvs.apps.twitter.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.math.BigInteger;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonPropertyOrder({
+        "created_at",
+        "id",
+        "id_str",
+        "text",
+        "entities",
+        "coordinates",
+        "retweet_count",
+        "favourite_count",
+        "favorited",
+        "retweeted"
+})
 public class Tweet {
+
     @JsonProperty("created_at")
-    private String created_at;
-
+    private String createdAt;
     @JsonProperty("id")
-    private BigInteger id;
-
+    private long id;
     @JsonProperty("id_str")
-    private String id_str;
-
+    private String idStr;
     @JsonProperty("text")
     private String text;
-
     @JsonProperty("entities")
     private Entities entities;
-
     @JsonProperty("coordinates")
     private Coordinates coordinates;
-
     @JsonProperty("retweet_count")
-    private Integer retweet_count;
-
+    private int retweetCount;
     @JsonProperty("favorite_count")
-    private Integer favorite_count;
-
+    private int favoriteCount;
     @JsonProperty("favorited")
-    private Boolean favorited;
-
+    private boolean favorited;
     @JsonProperty("retweeted")
-    private Boolean retweeted;
+    private boolean retweeted;
 
-    public String getCreated_at() {
-        return created_at;
+    @JsonProperty("created_at")
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
+    @JsonProperty("created_at")
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public BigInteger getId() {
+    @JsonProperty("id")
+    public long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    @JsonProperty("id")
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getId_str() {
-        return id_str;
+    @JsonProperty("id_str")
+    public String getIdStr() {
+        return idStr;
     }
 
-    public void setId_str(String id_str) {
-        this.id_str = id_str;
+    @JsonProperty("id_str")
+    public void setIdStr(String idStr) {
+        this.idStr = idStr;
     }
 
+    @JsonProperty("text")
     public String getText() {
         return text;
     }
 
+    @JsonProperty("text")
     public void setText(String text) {
         this.text = text;
     }
 
+    @JsonProperty("entities")
     public Entities getEntities() {
         return entities;
     }
 
+    @JsonProperty("entities")
     public void setEntities(Entities entities) {
         this.entities = entities;
     }
 
+    @JsonProperty("coordinates")
     public Coordinates getCoordinates() {
         return coordinates;
     }
 
+    @JsonProperty("coordinates")
     public void setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
     }
 
-    public Integer getRetweet_count() {
-        return retweet_count;
+    @JsonProperty("retweet_count")
+    public int getRetweetCount() {
+        return retweetCount;
     }
 
-    public void setRetweet_count(Integer retweet_count) {
-        this.retweet_count = retweet_count;
+    @JsonProperty("retweet_count")
+    public void setRetweetCount(int retweetCount) {
+        this.retweetCount = retweetCount;
     }
 
-    public Integer getFavorite_count() {
-        return favorite_count;
+    @JsonProperty("favorite_count")
+    public int getFavoriteCount() {
+        return favoriteCount;
     }
 
-    public void setFavorite_count(Integer favorite_count) {
-        this.favorite_count = favorite_count;
+    @JsonProperty("favorite_count")
+    public void setFavoriteCount(int favoriteCount) {
+        this.favoriteCount = favoriteCount;
     }
 
-    public Boolean isFavorited() {
+    @JsonProperty("favorited")
+    public boolean isFavorited() {
         return favorited;
     }
 
-    public void setFavorited(Boolean favorited) {
+    @JsonProperty("favorited")
+    public void setFavorited(boolean favorited) {
         this.favorited = favorited;
     }
 
-    public Boolean isRetweeted() {
+    @JsonProperty("retweeted")
+    public boolean isRetweeted() {
         return retweeted;
     }
 
-    public void setRetweeted(Boolean retweeted) {
+    @JsonProperty("retweeted")
+    public void setRetweeted(boolean retweeted) {
         this.retweeted = retweeted;
     }
-}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Tweet tweet = (Tweet) o;
+        return id == tweet.id &&
+                retweetCount == tweet.retweetCount &&
+                favoriteCount == tweet.favoriteCount &&
+                favorited == tweet.favorited &&
+                retweeted == tweet.retweeted &&
+                Objects.equals(createdAt, tweet.createdAt) &&
+                Objects.equals(idStr, tweet.idStr) &&
+                Objects.equals(text, tweet.text) &&
+                Objects.equals(entities, tweet.entities) &&
+                Objects.equals(coordinates, tweet.coordinates);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects
+                .hash(createdAt, id, idStr, text, entities, coordinates, retweetCount, favoriteCount,
+                        favorited, retweeted);
+    }
+}
