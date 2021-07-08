@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class TwitterDao implements CrdDao<Tweet, String> {
+
+    static final Logger logger = LoggerFactory.getLogger(TwitterDao.class);
+
 
     // URI constants
     private static final String API_BASE_URI = "https://api.twitter.com";
@@ -58,15 +64,17 @@ public class TwitterDao implements CrdDao<Tweet, String> {
      */
     @Override
     public Tweet findById(String s) {
-        URI uri = URI.create(API_BASE_URI + SHOW_PATH + QUERY_SYM + "id" + EQUAL + s);
-
-        HttpResponse response = httpHelper.httpGet(uri);
+        URI uri;
         try {
-            Tweet t = parseData(response, HTTP_OK);
-            return t;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            String uriStr = API_BASE_URI + SHOW_PATH + QUERY_SYM + "id" + EQUAL + s;
+            uri = new URI(uriStr);
+        } catch (URISyntaxException ex) {
+            throw new IllegalArgumentException("Invalid id input", ex);
         }
+
+        //Execute HTTP Request
+        HttpResponse response = httpHelper.httpGet(uri);
+        return parseData(response, HTTP_OK);
     }
 
     /**
@@ -77,14 +85,17 @@ public class TwitterDao implements CrdDao<Tweet, String> {
      */
     @Override
     public Tweet deleteById(String s) {
-        URI uri = URI.create(API_BASE_URI + DELETE_PATH + "/" + s + ".json");
-        HttpResponse response = httpHelper.httpPost(uri);
+        URI uri;
         try {
-            Tweet t = parseData(response, HTTP_OK);
-            return t;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            String uriStr = API_BASE_URI + DELETE_PATH + "/" + s + ".json";
+            uri = new URI(uriStr);
+        } catch (URISyntaxException ex) {
+            throw new IllegalArgumentException("Invalid id input", ex);
         }
+
+        //Execute HTTP Response
+        HttpResponse response = httpHelper.httpPost(uri);
+        return parseData(response, HTTP_OK);
     }
 
     private URI getPostUri(Tweet tweet) {
@@ -106,29 +117,40 @@ public class TwitterDao implements CrdDao<Tweet, String> {
      * Takes the response data of the request and creates the tweet object from the body
      *
      * @param response
-     * @param code
+     * @param httpOk
      * @return
      */
-    public Tweet parseData(HttpResponse response, int code) {
+    public Tweet parseData(HttpResponse response, int httpOk) {
         Tweet tweet = null;
-
-        int sCode = response.getStatusLine().getStatusCode();
-        if (sCode != code) {
-            throw new RuntimeException("Status code invalid: " + sCode);
+        int status = response.getStatusLine().getStatusCode();
+        if (status != httpOk) {
+            try {
+                logger.error(EntityUtils.toString(response.getEntity()));
+            } catch (IOException ex) {
+                logger.error("ERROR: Response has no entity");
+            }
+            throw new RuntimeException("Unexpected HTTP status code:" + status);
         }
 
-        String data;
+        if (response.getEntity() == null) {
+            throw new RuntimeException("Empty response body");
+        }
+
+        //Convert Response Entity to string
+        String jsonStr;
         try {
-            data = EntityUtils.toString(response.getEntity());
-        } catch (IOException e) {
-            throw new RuntimeException("Unable to convert the response to String.");
+            jsonStr = EntityUtils.toString(response.getEntity());
+        } catch (IOException ex) {
+            throw new RuntimeException("Failed to convert entity to a string", ex);
         }
 
+        //convert json to tweet object
         try {
-            tweet = TwitterJsonParser.toObjectFromJson(data, Tweet.class);
-        } catch (IOException e) {
-            throw new RuntimeException("Unable to convert data to a Tweet object -> " + e);
+            tweet = TwitterJsonParser.toObjectFromJson(jsonStr, Tweet.class);
+        } catch (IOException ex) {
+            throw new RuntimeException("Unable to convert json object to tweet object", ex);
         }
+
         return tweet;
     }
 }

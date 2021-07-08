@@ -54,8 +54,8 @@ public class TwitterServiceIntTest {
     @Test
     public void showTweet() {
         // valid id
-        Tweet vT = service.showTweet(posted.getId_str(), new String[]{});
-        assertEquals(posted.getId_str(), vT.getId_str());
+        Tweet vT = service.showTweet(posted.getIdStr(), new String[]{});
+        assertEquals(posted.getIdStr(), vT.getIdStr());
         Double lng = 33.0;
         Double lat = 33.0;
         // check valid
@@ -67,10 +67,10 @@ public class TwitterServiceIntTest {
 
     @Test
     public void deleteTweets() {
-        String[] ids = {posted.getId_str()};
+        String[] ids = {posted.getIdStr()};
 
         List<Tweet> tweets = service.deleteTweets(ids);
         assertTrue(tweets.size() == 4);
-        assertEquals(posted.getId_str(), tweets.get(0).getId_str());
+        assertEquals(posted.getIdStr(), tweets.get(0).getIdStr());
     }
 }

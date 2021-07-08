@@ -102,7 +102,7 @@ public class TwitterDaoUnitTest {
         //mock parseResponseBody
         doReturn(expectedTweet).when(spyDao).parseData(any(), anyInt());
 
-        Tweet tweet = spyDao.findById(expectedTweet.getId_str());
+        Tweet tweet = spyDao.findById(expectedTweet.getIdStr());
         assertNotNull(tweet);
         assertNotNull(tweet.getText());
     }
@@ -114,7 +114,7 @@ public class TwitterDaoUnitTest {
         //mock parseResponseBody
         doReturn(expectedTweet).when(spyDao).parseData(any(), anyInt());
 
-        Tweet tweet = spyDao.deleteById(expectedTweet.getId_str());
+        Tweet tweet = spyDao.deleteById(expectedTweet.getIdStr());
         assertNotNull(tweet);
         assertNotNull(tweet.getText());
     }
