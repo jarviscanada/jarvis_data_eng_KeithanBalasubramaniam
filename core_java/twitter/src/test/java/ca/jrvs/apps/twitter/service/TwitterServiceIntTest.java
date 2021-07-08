@@ -4,10 +4,16 @@ import ca.jrvs.apps.twitter.dao.CrdDao;
 import ca.jrvs.apps.twitter.dao.TwitterDao;
 import ca.jrvs.apps.twitter.dao.helper.HttpHelper;
 import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelper;
+import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelperTest;
 import ca.jrvs.apps.twitter.model.Tweet;
 import ca.jrvs.apps.twitter.util.CreateTweetUtil;
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
+import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.List;
 
@@ -21,29 +27,28 @@ public class TwitterServiceIntTest {
 
     @Before
     public void setUp() throws Exception {
-        String CONSUMER_KEY = System.getenv("consumerKey");
-        String CONSUMER_SECRET = System.getenv("consumerSecret");
-        String ACCESS_TOKEN = System.getenv("accessToken");
-        String TOKEN_SECRET = System.getenv("tokenSecret");
+        String cKey = System.getenv("consumerKey");
+        String cSecret = System.getenv("consumerSecret");
+        String accessToken = System.getenv("accessToken");
+        String tokenSecret = System.getenv("tokenSecret");
+        HttpHelper httpHelper = new TwitterHttpHelper(cKey, cSecret, accessToken, tokenSecret);
 
-        HttpHelper httpHelper = new TwitterHttpHelper(CONSUMER_KEY, CONSUMER_SECRET,
-                ACCESS_TOKEN, TOKEN_SECRET);
-
-        CrdDao<Tweet, String> dao = new TwitterDao(httpHelper);
+        CrdDao dao = new TwitterDao(httpHelper);
         service = new TwitterService(dao);
 
         String hashtag = "#abc";
         text = "some text " + hashtag + " " + System.currentTimeMillis();
-        Tweet valid = CreateTweetUtil.createTweet(text, 33.0, 33.0);
+        Tweet valid = CreateTweetUtil.createTweet(text, 33d, 33d);
         posted = service.postTweet(valid);
-
-
     }
+
+    @Rule
+    public ExpectedException exceptionRule = ExpectedException.none();
 
     @Test
     public void postTweet() {
-        Double lng = 33.0;
-        Double lat = 33.0;
+        Double lng = 33d;
+        Double lat = 33d;
         // check valid
         assertNotNull(posted);
         assertEquals(lng, posted.getCoordinates().getCoordinates().get(0));
@@ -56,8 +61,8 @@ public class TwitterServiceIntTest {
         // valid id
         Tweet vT = service.showTweet(posted.getIdStr(), new String[]{});
         assertEquals(posted.getIdStr(), vT.getIdStr());
-        Double lng = 33.0;
-        Double lat = 33.0;
+        Double lng = 33d;
+        Double lat = 33d;
         // check valid
         assertNotNull(vT);
         assertEquals(lng, vT.getCoordinates().getCoordinates().get(0));
@@ -67,10 +72,16 @@ public class TwitterServiceIntTest {
 
     @Test
     public void deleteTweets() {
-        String[] ids = {posted.getIdStr()};
+        exceptionRule.expect(IllegalArgumentException.class);
+        exceptionRule.expectMessage("The id of the tweet is invalid");
+        String[] invalidIds = {"1408425639410126858", "1408425467728826376", "00a"};
 
-        List<Tweet> tweets = service.deleteTweets(ids);
-        assertTrue(tweets.size() == 4);
-        assertEquals(posted.getIdStr(), tweets.get(0).getIdStr());
+        service.deleteTweets(invalidIds);
+
+        String[] validIds = {"1408425639410126858", "1408425467728826376", "1408406943950151684"};
+        List<Tweet> deletedTweets = service.deleteTweets(validIds);
+
+        assertEquals(3, deletedTweets.size());
+        assertNotNull(deletedTweets);
     }
 }
