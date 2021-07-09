@@ -1,7 +1,6 @@
 package ca.jrvs.apps.twitter.example;
 
 import com.google.gdata.util.common.base.PercentEscaper;
-import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 import org.apache.http.HttpResponse;

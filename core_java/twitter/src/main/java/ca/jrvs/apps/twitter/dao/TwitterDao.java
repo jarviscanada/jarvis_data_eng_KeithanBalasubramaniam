@@ -6,10 +6,8 @@ import com.google.gdata.util.common.base.PercentEscaper;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
-
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Repository;
 public class TwitterDao implements CrdDao<Tweet, String> {
 
     static final Logger logger = LoggerFactory.getLogger(TwitterDao.class);
-
 
     // URI constants
     private static final String API_BASE_URI = "https://api.twitter.com";

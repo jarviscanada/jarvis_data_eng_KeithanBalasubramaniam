@@ -11,13 +11,17 @@ import ca.jrvs.apps.twitter.service.Service;
 import ca.jrvs.apps.twitter.service.TwitterService;
 import ca.jrvs.apps.twitter.util.TwitterJsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class TwitterCLIApp {
 
     private Controller controller;
 
+    @Autowired
     public TwitterCLIApp(Controller controller){
         this.controller = controller;
     }

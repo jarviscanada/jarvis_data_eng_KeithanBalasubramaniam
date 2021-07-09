@@ -2,16 +2,8 @@ package ca.jrvs.apps.twitter.dao;
 
 import ca.jrvs.apps.twitter.dao.helper.HttpHelper;
 import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelper;
-import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelperTest;
 import ca.jrvs.apps.twitter.model.Tweet;
 import ca.jrvs.apps.twitter.util.CreateTweetUtil;
-import java.net.URISyntaxException;
-
-import ca.jrvs.apps.twitter.util.TwitterJsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
