@@ -6,7 +6,7 @@ I am a recent graduate from Ryerson University where I received my Bachelor of E
 
 **Proficient:** Java, Linux/Bash, RDBMS/SQL, Agile/Scrum, Git, Python, Docker
 
-**Competent:** HTML, CSS, C, C++, Matlab
+**Competent:** HTML, REST APIs, CSS, C, C++, Matlab
 
 **Familiar:** TensorFlow, OpenCV, VHDL, Swift, Javascript
 
@@ -19,7 +19,7 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_KeithanBal
 
 **Core Java Apps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_KeithanBalasubramaniam/tree/master/core_java)]:
       
-  - Twitter App: In Development.
+  - Twitter App: Developed a Twitter CLI application that implemented the Twitter API to allow users to post, search, and delete tweets from the command line. Preformed agile testing by creating and executing test scripts for the application.
   - JDBC App: Implemented an application to store customer and sales data for a sample enterprise for the purpose of exploring the JDBC library and common data persitence design patterns. This application was developed using Java with a PSQL instance for data storage maintained docker container.
   - Grep App: Developed an application that mirrors the Linux bash grep function. This application was developed using Java to search for a matching regex pattern in a directory.
 
@@ -52,6 +52,7 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_KeithanBal
 ## Education
 **Ryerson University (2017-2021)**, Bachelor of Engineering, Computer Engineering
 - Engineering Entrance Scholarship
+- Dean's List (2020-2021)
 
 
 ## Miscellaneous
