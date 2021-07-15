@@ -47,7 +47,7 @@ public class TwitterController implements Controller{
             lng = Double.parseDouble(corr[0]);
             lat = Double.parseDouble(corr[1]);
         } catch (NumberFormatException e){
-            throw new IllegalArgumentException("Invalid Input: Error parsing coordinates");
+            throw new IllegalArgumentException("Invalid Input: Error parsing coordinates", e);
         }
 
         Tweet tweet = CreateTweetUtil.createTweet(text, lng, lat);
