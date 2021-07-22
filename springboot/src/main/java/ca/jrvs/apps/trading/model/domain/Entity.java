@@ -1,2 +1,8 @@
-package ca.jrvs.apps.trading.model.domain;public interface Entity {
+package ca.jrvs.apps.trading.model.domain;
+
+public interface Entity <ID>{
+
+    ID getID();
+
+    void setID(ID id);
 }
