@@ -27,6 +27,8 @@ public class QuoteDaoIntTest{
 
     @Before
     public void insertOne(){
+        quoteDao.deleteAll();
+        savedQuote = new Quote();
         savedQuote.setAskPrice(10d);
         savedQuote.setAskSize(10);
         savedQuote.setBidPrice(10.2d);
@@ -113,7 +115,5 @@ public class QuoteDaoIntTest{
         quoteDao.deleteAll();
         assertEquals(0, quoteDao.count());
     }
-
-
 
 }
