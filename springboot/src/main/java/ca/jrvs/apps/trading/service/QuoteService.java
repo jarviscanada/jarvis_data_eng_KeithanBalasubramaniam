@@ -49,13 +49,14 @@ public class QuoteService {
      * @throws org.springframework.dao.DataAccessException if unable to retrieve the data
      * @throws IllegalArgumentException for invalid input
      */
-    public void updateMarketData() {
+    public List<Quote> updateMarketData() {
         List<Quote> quotes = (List<Quote>) quoteDao.findAll();
         quotes.forEach(q -> {
             IexQuote iexQuote = marketDataDao.findById(q.getID()).get();
             Quote quote = buildQuoteFromIexQuote(iexQuote);
             quoteDao.save(quote);
         });
+        return quotes;
     }
 
     /**
