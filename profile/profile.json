@@ -44,29 +44,9 @@
       "name": "Core Java Apps"
     },
     {
-      "description": "In Development.",
+      "description": "Developed a SpringBoot trading application that simulates stock trading using a REST API. The application's architecture models a three-tiered microservice pattern and uses Springboot along with Maven for its dependency management. The data is created from the applicaiton as well as pulled from the IEX Cloud and stored in a PSQL database. The applicaiton is dockerized with a container to run the application and another to handle the PSQL database server.",
       "git_url": "/springboot",
       "name": "Springboot App"
-    },
-    {
-      "description": "In Development.",
-      "git_url": "/python_data_anlytics",
-      "name": "Python Data Analytics"
-    },
-    {
-      "description": "In Development.",
-      "git_url": "/hadoop",
-      "name": "Hadoop"
-    },
-    {
-      "description": "In Development.",
-      "git_url": "/spark",
-      "name": "Spark"
-    },
-    {
-      "description": "In Development.",
-      "git_url": "/cloud_devops",
-      "name": "Cloud/DevOps"
     }
   ],
   "name": "Keithan Balasubramaniam",
