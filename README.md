@@ -23,15 +23,7 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_KeithanBal
   - JDBC App: Implemented an application to store customer and sales data for a sample enterprise for the purpose of exploring the JDBC library and common data persitence design patterns. This application was developed using Java with a PSQL instance for data storage maintained docker container.
   - Grep App: Developed an application that mirrors the Linux bash grep function. This application was developed using Java to search for a matching regex pattern in a directory.
 
-**Springboot App** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_KeithanBalasubramaniam/tree/master/springboot)]: In Development.
-
-**Python Data Analytics** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_KeithanBalasubramaniam/tree/master/python_data_anlytics)]: In Development.
-
-**Hadoop** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_KeithanBalasubramaniam/tree/master/hadoop)]: In Development.
-
-**Spark** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_KeithanBalasubramaniam/tree/master/spark)]: In Development.
-
-**Cloud/DevOps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_KeithanBalasubramaniam/tree/master/cloud_devops)]: In Development.
+**Springboot App** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_KeithanBalasubramaniam/tree/master/springboot)]: Developed a SpringBoot trading application that simulates stock trading using a REST API. The application's architecture models a three-tiered microservice pattern and uses Springboot along with Maven for its dependency management. The data is created from the applicaiton as well as pulled from the IEX Cloud and stored in a PSQL database. The applicaiton is dockerized with a container to run the application and another to handle the PSQL database server.
 
 
 ## Highlighted Projects
